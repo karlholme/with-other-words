@@ -1,0 +1,416 @@
+$background-color: #efefef;
+$primary-color: #1b6b67;
+$contrast-color: #0d3634;
+$font-main-color: $primary-color;
+$shadow-color: rgba(0, 0, 0, 0.11);
+$main-font-faces: Bangers, Arial;
+
+$header-height: 10vh;
+
+@font-face {
+    font-family: "Bangers";
+    src: url("./assets/Bangers-Regular.ttf") format("truetype");
+}
+
+/// Stroke font-character
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {List}            - text-shadow list
+@function stroke($stroke, $color) {
+    $shadow: ();
+    $from: $stroke * -1;
+    @for $i from $from through $stroke {
+        @for $j from $from through $stroke {
+            $shadow: append($shadow, $i * 1px $j * 1px 0 $color, comma);
+        }
+    }
+    @return $shadow;
+}
+
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {Style}           - text-shadow
+@mixin stroke($color: white, $stroke: 1, $shadow-width: 0.4vh) {
+    text-shadow: stroke($stroke, $color), #{$shadow-width} #{$shadow-width} 0 #{$shadow-color};
+}
+
+//@mixin stroke($color: white, $size: 1px, $shadow-width: 0.4vh) {
+//  text-shadow: -#{$size} -#{$size} 0 $color, 0 -#{$size} 0 $color, #{$size} -#{$size} 0 $color, #{$size} 0 0 $color,
+//  #{$size} #{$size} 0 $color, 0 #{$size} 0 $color, -#{$size} #{$size} 0 $color, -#{$size} 0 0 $color,
+//  #{$shadow-width} #{$shadow-width} 0 #{$shadow-color};
+//}
+
+@mixin common-text() {
+    font-family: $main-font-faces;
+    letter-spacing: 0.2vh;
+}
+
+body {
+    background-color: $background-color;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 12vh;
+}
+
+header {
+    height: $header-height;
+    background-color: $primary-color;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 1vh $shadow-color;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.3vh solid $contrast-color;
+
+    & .header-text {
+        font-family: $main-font-faces;
+        color: white;
+        -webkit-text-stroke: 1 $contrast-color;
+        font-size: 6vh;
+        padding-top: 1vh;
+        @include common-text();
+        @include stroke($contrast-color, 3, 0.4vh);
+    }
+}
+
+.page-header {
+    height: 13vh;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.main-content {
+    height: 58vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: normal;
+}
+
+footer {
+    height: 17vh;
+    // padding-bottom: 5vh;
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    $font-size: 7vh;
+    $letter-spacing: 0.5vh;
+    @include common-text();
+
+    padding: 1vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    @include common-text();
+    background: -webkit-linear-gradient($primary-color, $contrast-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: $contrast-color;
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
+    height: fit-content;
+
+    &:before {
+        @include common-text();
+        position: absolute;
+        content: attr(title);
+        font-size: $font-size;
+        letter-spacing: $letter-spacing;
+        z-index: -1;
+        @include stroke(white, 2, 0.5vh);
+    }
+}
+
+h2 {
+    color: $contrast-color;
+    @include common-text();
+    @include stroke(white, 2, 0.3vh);
+    font-size: 4vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invalid-text {
+    @include common-text();
+    font-size: 3vh;
+    color: $contrast-color;
+}
+
+.gradient-text {
+    $font-size: 10vh;
+    $letter-spacing: 0.9vh;
+
+    @include common-text();
+    background: -webkit-linear-gradient($primary-color, $contrast-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: $contrast-color;
+    font-size: $font-size;
+    letter-spacing: $letter-spacing;
+    height: fit-content;
+    padding: 1vh;
+
+    &:before {
+        @include common-text();
+        position: absolute;
+        content: attr(title);
+        font-size: $font-size;
+        letter-spacing: $letter-spacing;
+        z-index: -1;
+        @include stroke(white, 3, 0.7vh);
+    }
+}
+
+input {
+    transition: border-bottom-color 0.2s;
+    border-width: 0 0 3px;
+    border-radius: 2vh;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    margin-bottom: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: inline-block;
+    font-size: 4vh;
+    text-align: left;
+    color: $contrast-color;
+    font-family: $main-font-faces;
+    letter-spacing: 0.1vh;
+    padding-left: 0.5vh;
+    //padding-bottom: 0.4vh;
+    @include common-text();
+    @include stroke(white, 1, 0.2vh);
+}
+
+select {
+    font-family: $main-font-faces;
+    color: black;
+    border-width: 0.2vh;
+    border-color: rgba(0, 0, 0, 0.2);
+    font-size: 4vh;
+    min-height: 7vh;
+    min-width: 18vh;
+    padding: 1vh 6vh 1vh 3vh;
+    letter-spacing: 0.1vh;
+    box-shadow: 0.4vh 0.4vh $shadow-color;
+    border-radius: 1vh;
+
+    //custom chevron
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("./assets/chevron.svg");
+    background-size: 3vh;
+    background-repeat: no-repeat;
+    background-position: 92% center;
+
+    &:active {
+        box-shadow: 0.6vh 0.6vh $shadow-color;
+    }
+}
+
+button {
+    background-color: $primary-color;
+    border: 0.6vh solid $contrast-color;
+    padding: 2vh 3vh;
+    border-radius: 1vh;
+    box-shadow: 0.5vh 0.5vh $shadow-color;
+    transition: background-color 0.05s;
+
+    & .button-text {
+        color: white;
+        font-size: 5vh;
+        padding: 0.3vh;
+        @include common-text();
+        @include stroke($contrast-color, 3, 0.4vh);
+    }
+
+    &:active {
+        background-color: #195f5c;
+        box-shadow: 0.8vh 0.8vh $shadow-color;
+    }
+}
+
+.box {
+    width: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    place-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.color-box-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 80vw;
+    height: 45vh;
+    padding: 3vh 2vh;
+
+    .extra-info {
+        color: $contrast-color;
+        font-size: calc(3vh + 4vw);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        @include common-text();
+        text-align: center;
+        @include stroke(white, 1, 0.2vh);
+    }
+
+    .color-box {
+        background-color: $primary-color;
+        padding: 1vh;
+        border-radius: 2vh 2vh 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include stroke(white, 1);
+        width: 80%;
+        border: $contrast-color solid 0.7vh;
+        max-width: 8vw;
+        margin: 0.1rem;
+
+        .color-box-header {
+            font-size: calc(3vh + 3vw);
+            padding: 0 1vh;
+            color: white;
+            @include common-text();
+            margin-bottom: 0.5vh;
+            text-align: center;
+            @include stroke($contrast-color, 1, 0.2vh);
+        }
+
+        .color-box-body {
+            width: 5vh;
+            height: 5vh;
+            border-radius: 100vh;
+            background-color: $contrast-color;
+            padding: 1vw;
+            margin: 1vh 2vw;
+            font-size: calc(2vh + 2vw);
+            color: white;
+            @include common-text();
+            @include stroke($contrast-color, 3, 0.2vh);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.point-circle {
+    $size: calc(10vh + 5vw);
+    position: absolute;
+    top: 13vh;
+    left: 3%;
+    height: $size;
+    width: $size;
+    background: $primary-color;
+    border-radius: 100vh;
+    margin-right: 2rem;
+    border: $contrast-color solid 0.7vh;
+    transform: rotate(349deg);
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    .point-circle-text {
+        @include common-text();
+        padding: 1vh;
+        color: white;
+        font-size: 7vh;
+        @include stroke($contrast-color, 4, 0.2vh);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .box {
+        width: 90%;
+    }
+    label {
+        font-size: 4vh;
+    }
+    select {
+        font-size: 4vh;
+        min-height: 6vh;
+        min-width: 15vh;
+    }
+    h1 {
+        font-size: 6vh;
+        &::before {
+            font-size: 6vh;
+        }
+    }
+    button {
+        & .button-text {
+            color: white;
+            font-size: 4vh;
+            padding: 0.3vh;
+            @include common-text();
+            @include stroke($contrast-color, 3, 0.4vh);
+        }
+    }
+    .point-circle {
+        $size: calc(7vh + 4vw);
+        height: $size;
+        width: $size;
+
+        .point-circle-text {
+            padding: 1vh;
+            color: white;
+            font-size: 4vh;
+            @include stroke($contrast-color, 3, 0.2vh);
+        }
+    }
+    .gradient-text {
+        $font-size: 6vh;
+        $letter-spacing: 0.8vh;
+
+        font-size: $font-size;
+        letter-spacing: $letter-spacing;
+
+        &:before {
+            font-size: $font-size;
+            letter-spacing: $letter-spacing;
+            @include stroke(white, 2, 0.5vh);
+        }
+    }
+}

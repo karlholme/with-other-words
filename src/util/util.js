@@ -1,0 +1,1 @@
+export const getHighestScore = (teamScores) => Math.max(..._.values(teamScores).map((teamScore) => teamScore.score));
