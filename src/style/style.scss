@@ -57,13 +57,13 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 12vh;
+    // padding-top: 12vh;
 }
 
 header {
     height: $header-height;
     background-color: $primary-color;
-    position: fixed;
+    // position: fixed;
     width: 100%;
     z-index: 1;
     box-shadow: 0 1vh $shadow-color;
@@ -77,15 +77,16 @@ header {
         font-family: $main-font-faces;
         color: white;
         -webkit-text-stroke: 1 $contrast-color;
-        font-size: 6vh;
-        padding-top: 1vh;
+        font-size: 5vh;
+        padding-top: 2vh;
         @include common-text();
         @include stroke($contrast-color, 3, 0.4vh);
     }
 }
 
 .page-header {
-    height: 13vh;
+    height: 12vh;
+    padding-top: 3vh;
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -141,14 +142,14 @@ h1 {
         font-size: $font-size;
         letter-spacing: $letter-spacing;
         z-index: -1;
-        @include stroke(white, 2, 0.5vh);
+        @include stroke(white, 1, 0.3vh);
     }
 }
 
 h2 {
     color: $contrast-color;
     @include common-text();
-    @include stroke(white, 2, 0.3vh);
+    @include stroke(white, 1, 0.3vh);
     font-size: 4vh;
     margin: 0;
     display: flex;
@@ -183,7 +184,7 @@ h2 {
         font-size: $font-size;
         letter-spacing: $letter-spacing;
         z-index: -1;
-        @include stroke(white, 3, 0.7vh);
+        @include stroke(white, 1, 0.5vh);
     }
 }
 
@@ -242,10 +243,10 @@ select {
 
 button {
     background-color: $primary-color;
-    border: 0.6vh solid $contrast-color;
+    border: 0.5vh solid $contrast-color;
     padding: 2vh 3vh;
     border-radius: 1vh;
-    box-shadow: 0.5vh 0.5vh $shadow-color;
+    box-shadow: 0.4vh 0.4vh $shadow-color;
     transition: background-color 0.05s;
 
     & .button-text {
@@ -253,12 +254,12 @@ button {
         font-size: 5vh;
         padding: 0.3vh;
         @include common-text();
-        @include stroke($contrast-color, 3, 0.4vh);
+        @include stroke($contrast-color, 3, 0.3vh);
     }
 
     &:active {
         background-color: #195f5c;
-        box-shadow: 0.8vh 0.8vh $shadow-color;
+        box-shadow: 0.5vh 0.5vh $shadow-color;
     }
 }
 
@@ -385,7 +386,7 @@ button {
             font-size: 4vh;
             padding: 0.3vh;
             @include common-text();
-            @include stroke($contrast-color, 3, 0.4vh);
+            @include stroke($contrast-color, 2, 0.3vh);
         }
     }
     .point-circle {
@@ -402,7 +403,7 @@ button {
     }
     .gradient-text {
         $font-size: 6vh;
-        $letter-spacing: 0.8vh;
+        $letter-spacing: 0.5vh;
 
         font-size: $font-size;
         letter-spacing: $letter-spacing;
@@ -410,7 +411,7 @@ button {
         &:before {
             font-size: $font-size;
             letter-spacing: $letter-spacing;
-            @include stroke(white, 2, 0.5vh);
+            @include stroke(white, 1, 0.4vh);
         }
     }
 }

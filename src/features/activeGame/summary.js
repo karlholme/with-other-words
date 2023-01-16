@@ -13,7 +13,7 @@ export default function activeGamePageMaker() {
         return (
             <>
                 <div className="page-header" style={{ height: '18vh' }}>
-                    <h1 title={'Omgång'} style={{ marginTop: '1rem', marginBottom: '0', paddingBottom: '0' }}>Omgång</h1>
+                    <h1 title={'OMGÅNG'} style={{ marginTop: '.1vh', marginBottom: '0', paddingBottom: '0' }}>OMGÅNG</h1>
                     <h1 title={round + '/' + amountOfRounds} style={{ marginTop: '0', paddingTop: '0' }}>{round + '/' + amountOfRounds}</h1>
                 </div>
 

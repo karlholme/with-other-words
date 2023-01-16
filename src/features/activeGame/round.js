@@ -37,7 +37,7 @@ export default function activeGamePageMaker() {
                 </div>
 
                 <div className="main-content" style={{ justifyContent: 'center', height: '53vh' }}>
-                    <div title={wordToGuess} className="gradient-text">{wordToGuess}</div>
+                    <h1 style={{fontSize: '7vh'}} title={wordToGuess}>{wordToGuess}</h1>
                 </div>
 
                 <footer>

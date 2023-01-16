@@ -20,7 +20,6 @@ const RoundComponent = roundComponentMaker();
 const GameSummaryComponent = gameSummaryComponentMaker();
 
 // TODO
-// Bryt ut staplar
 // Pass
 // PWA
 // Landscape mode
