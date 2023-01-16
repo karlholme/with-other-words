@@ -5,7 +5,7 @@ const setupSlice = createSlice({
     initialState: {
         amountOfTeams: 2,
         amountOfRounds: 3,
-        roundLength: 2,
+        roundLength: 30,
         passPerRound: 1
     },
     reducers: {
