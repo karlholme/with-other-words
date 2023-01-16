@@ -12,7 +12,7 @@ export default function activeGamePageMaker() {
         return minutes + ':' + sekWithLeadingZero;
     }
 
-    function RoundComponent({ triggerEvent, wordToGuess, totalTime, roundScore }) {
+    function RoundComponent({ triggerEvent, wordToGuess, totalTime, roundScore, maxPassesPassed }) {
         const [counter, setCounter] = React.useState(totalTime);
         const timeLeft = convertSecondsToMinutesAndSek(counter);
 
@@ -31,16 +31,23 @@ export default function activeGamePageMaker() {
                 <div className="point-circle">
                     <div className="point-circle-text">{roundScore} P</div>
                 </div>
-                <div className="page-header" style={{height: '18vh'}}>
+                <div className="page-header" style={{ height: '18vh' }}>
                     <h1 title={'OMGÅNG'} style={{ marginTop: '.1vh', marginBottom: '0', paddingBottom: '0' }}>OMGÅNG</h1>
                     <h1 title={timeLeft} style={{ marginTop: '0', paddingTop: '0' }}>{timeLeft}</h1>
                 </div>
 
-                <div className="main-content" style={{ justifyContent: 'center', height: '53vh' }}>
-                    <h1 style={{fontSize: '7vh'}} title={wordToGuess}>{wordToGuess}</h1>
+                <div className="main-content" style={{ justifyContent: 'center', height: '51vh' }}>
+                    <h1 title={wordToGuess}>{wordToGuess}</h1>
                 </div>
 
-                <footer>
+                <footer style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Button disabled={maxPassesPassed} label="👎" style={{ marginRight: '3vh' }} onClick={function () {
+                        triggerEvent({ name: 'PASS' });
+                    }} />
                     <Button label="👍" onClick={function () {
                         triggerEvent({ name: 'WORD_COMPLETED' });
                     }} />

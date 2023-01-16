@@ -35,6 +35,7 @@ const activeGameSlice = createSlice({
         round: 1,
         activeTeam: 1,
         roundScore: 0,
+        roundPasses: 0,
         nextWordToGuess: null,
         wordsToChooseFrom: words,
         teamScores: {
@@ -69,6 +70,7 @@ const activeGameSlice = createSlice({
             state.teamScores[state.activeTeam].score = state.teamScores[state.activeTeam].score + state.roundScore;
             state.teamScores[state.activeTeam].extraInfo = '+' + state.roundScore;
             state.roundScore = 0;
+            state.roundPasses = 0;
             state.activeTeam = lastTeam ? 1 : (state.activeTeam + 1);
             state.gameEnded = gameEnded;
             state.nextWordToGuess = nextWordToGuess;
@@ -116,6 +118,14 @@ const activeGameSlice = createSlice({
 
             return state;
         },
+        pass: (state) => {
+            const { nextWordToGuess, wordsToChooseFrom } = getNextWord(state);
+            state.nextWordToGuess = nextWordToGuess;
+            state.wordsToChooseFrom = wordsToChooseFrom;
+            state.roundPasses++;
+
+            return state;
+        },
         resetGame: (state) => {
             state.round = 1;
             state.activeTeam = 1;
@@ -142,5 +152,6 @@ export const {
     newGameStarted,
     wordCompleted,
     roundEnded,
-    resetGame
+    resetGame,
+    pass
 } = activeGameSlice.actions;

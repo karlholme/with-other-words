@@ -16,7 +16,7 @@ export default function newGamePageMaker() {
                     <Dropdown
                         title="Antal lag 🧑‍🤝‍🧑"
                         placeholder="Välj.."
-                        alternatives={[1, 2, 3, 4, 5]}
+                        alternatives={[1, 2, 3, 4, 5, 6]}
                         onChange={function (event) {
                             triggerEvent({ name: 'AMOUNT-OF-TEAMS-CHANGED', data: event.target.value })
                         }}
@@ -25,7 +25,7 @@ export default function newGamePageMaker() {
                     <Dropdown
                         title="Antal rundor ♺"
                         placeholder="Välj.."
-                        alternatives={[1, 2, 3, 4, 5]}
+                        alternatives={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                         onChange={(event) => triggerEvent({ name: 'AMOUNT-OF-ROUNDS-CHANGED', data: event.target.value })}
                         value={amountOfRounds}
                     />

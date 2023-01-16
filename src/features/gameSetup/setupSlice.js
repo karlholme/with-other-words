@@ -22,7 +22,7 @@ const setupSlice = createSlice({
             return state;
         },
         setPassPerRound: (state, action) => {
-            state.passPerRound = Number(action.payload);
+            state.passPerRound = action.payload === '∞' ? '∞' : Number(action.payload);
             return state;
         }
     }

@@ -1,7 +1,5 @@
 import React from "react";
-// import _ from 'lodash';
 import { hot } from 'react-hot-loader/root';
-// import * as core from './core';
 import setupComponentMaker from '../features/gameSetup/setup';
 import nameTeamsComponentMaker from '../features/gameSetup/nameTeams';
 import summaryComponentMaker from '../features/activeGame/summary';
@@ -11,7 +9,7 @@ import gameSummaryComponentMaker from '../features/gameSummary/summary';
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePage } from './routerSlice';
 import { setAmountOfRounds, setAmountOfTeams, setPassPerRound, setRoundLength } from '../features/gameSetup/setupSlice';
-import { newGameStarted, wordCompleted, roundEnded, resetGame, teamNameChanged } from '../features/activeGame/gameSlice';
+import { newGameStarted, wordCompleted, roundEnded, resetGame, teamNameChanged, pass } from '../features/activeGame/gameSlice';
 
 const SetupComponent = setupComponentMaker();
 const NameTeamsComponent = nameTeamsComponentMaker();
@@ -108,9 +106,12 @@ function App() {
                         roundScore={state.game.roundScore}
                         wordToGuess={state.game.nextWordToGuess}
                         round={state.game.round}
+                        maxPassesPassed={state.game.roundPasses >= state.setup.passPerRound}
                         triggerEvent={function (event) {
                             if (event.name === 'WORD_COMPLETED') {
                                 dispatch(wordCompleted())
+                            } else if (event.name === 'PASS') {
+                                dispatch(pass())
                             } else if (event.name === 'ROUND_ENDED') {
                                 dispatch(roundEnded(state.setup.amountOfRounds));
                                 dispatch(setActivePage('game'));

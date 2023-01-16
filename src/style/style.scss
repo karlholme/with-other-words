@@ -1,5 +1,6 @@
 $background-color: #efefef;
 $primary-color: #1b6b67;
+$primary-darker: #195f5c;
 $contrast-color: #0d3634;
 $font-main-color: $primary-color;
 $shadow-color: rgba(0, 0, 0, 0.11);
@@ -258,8 +259,13 @@ button {
     }
 
     &:active {
-        background-color: #195f5c;
+        background-color: $primary-darker;
         box-shadow: 0.5vh 0.5vh $shadow-color;
+    }
+
+    &:disabled {
+        background-color: $primary-darker;
+        opacity: 0.6;
     }
 }
 
