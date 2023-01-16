@@ -14,8 +14,9 @@ export default function buttonMaker() {
                 style={style}
                 disabled={disabled}
                 onClick={function (event) {
-                    event.preventDefault()
-                    onClick()
+                    event.preventDefault();
+                    navigator.vibrate(200);
+                    onClick();
                 }}>
                 <span className="button-text" >
                     {label}

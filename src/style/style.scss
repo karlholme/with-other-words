@@ -10,7 +10,7 @@ $header-height: 10vh;
 
 @font-face {
     font-family: "Bangers";
-    src: url("./assets/Bangers-Regular.ttf") format("truetype");
+    src: url("../assets/Bangers-Regular.ttf") format("truetype");
 }
 
 /// Stroke font-character
@@ -232,7 +232,7 @@ select {
     //custom chevron
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("./assets/chevron.svg");
+    background-image: url("../assets/chevron.svg");
     background-size: 3vh;
     background-repeat: no-repeat;
     background-position: 92% center;

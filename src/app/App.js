@@ -11,14 +11,20 @@ import { setActivePage } from './routerSlice';
 import { setAmountOfRounds, setAmountOfTeams, setPassPerRound, setRoundLength } from '../features/gameSetup/setupSlice';
 import { newGameStarted, wordCompleted, roundEnded, resetGame, teamNameChanged, pass } from '../features/activeGame/gameSlice';
 
+import dingSound from '../assets/ding.mp3';
+
 const SetupComponent = setupComponentMaker();
 const NameTeamsComponent = nameTeamsComponentMaker();
 const SummaryComponent = summaryComponentMaker();
 const RoundComponent = roundComponentMaker();
 const GameSummaryComponent = gameSummaryComponentMaker();
 
+const ding = new Audio(dingSound);
+
 // TODO
-// Pass
+// Ljud när omgången är slut
+// Meny där man kan starta om spel
+// Ändra om man tryckt fel
 // PWA
 // Landscape mode
 
@@ -115,6 +121,8 @@ function App() {
                             } else if (event.name === 'ROUND_ENDED') {
                                 dispatch(roundEnded(state.setup.amountOfRounds));
                                 dispatch(setActivePage('game'));
+                            
+                                ding.play();
                             }
                         }}
                     />
