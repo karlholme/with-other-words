@@ -21,7 +21,9 @@ export default function activeGamePageMaker() {
             if (counter > 0) {
                 timer = setInterval(() => setCounter(counter - 1), 1000);
             } else {
-                navigator.vibrate(400);
+                if (navigator.vibrate) {
+                    navigator.vibrate(400);
+                }
                 triggerEvent({ name: 'ROUND_ENDED' });
             }
             return () => clearInterval(timer);
