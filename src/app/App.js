@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { hot } from 'react-hot-loader/root';
 import setupComponentMaker from '../features/gameSetup/setup';
 import nameTeamsComponentMaker from '../features/gameSetup/nameTeams';
 import summaryComponentMaker from '../features/activeGame/summary';
 import roundComponentMaker from '../features/activeGame/round';
 import gameSummaryComponentMaker from '../features/gameSummary/summary';
+import Arrow from '../assets/Arrow.js';
+import Cross from '../assets/Cross';
 
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePage } from './routerSlice';
@@ -31,6 +33,17 @@ const ding = new Audio(dingSound);
 function App() {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
+
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(function () {
+        if (/iPhone/.test(navigator.userAgent)) {
+            setShowModal(true);
+            addEventListener("resize", () => {
+                setShowModal(false);
+            });
+        }
+    }, []);
 
     return (
         <>
@@ -121,15 +134,24 @@ function App() {
                             } else if (event.name === 'ROUND_ENDED') {
                                 dispatch(roundEnded(state.setup.amountOfRounds));
                                 dispatch(setActivePage('game'));
-                            
+
                                 ding.play();
                             }
                         }}
                     />
                 }
             </div>
+            <div className={'modal' + (showModal ? ' show' : '')}>
+                <div className="modal-content" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ marginBottom: '2vw', marginRight: '2vw' }}>
+                        För att spela behöver du dölja adressfältet nedan. Tryck på "<span style={{ fontSize: '2vh' }}>a</span>a" och sedan “göm verktygsfältet".
+                    </div>
+                    <Arrow />
+                </div>
+            </div>
         </>
     )
 }
 
 export default hot(App);
+

@@ -24,6 +24,9 @@ const config = {
             }, {
                 test: /\.(s(a|c)ss)$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
+            }, {
+                test: /\.mp3$/,
+                loader: 'file-loader'
             }
         ]
     },
