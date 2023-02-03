@@ -7,7 +7,7 @@ const config = {
         './src/index.js'
     ],
     output: {
-        path: path.resolve(__dirname, 'karlholme'),
+        path: __dirname + '/karlholme',
         filename: 'bundle.js'
     },
     resolve: {

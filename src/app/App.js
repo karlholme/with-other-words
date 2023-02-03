@@ -143,7 +143,7 @@ function App() {
             </div>
             <div className={'modal' + (showModal ? ' show' : '')}>
                 <div className="modal-content" style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ marginBottom: '2vw', marginRight: '2vw' }}>
+                    <div style={{ marginRight: '2vw' }}>
                         För att spela behöver du dölja adressfältet nedan. Tryck på "<span style={{ fontSize: '2vh' }}>a</span>a" och sedan “göm verktygsfältet".
                     </div>
                     <Arrow />
