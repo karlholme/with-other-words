@@ -53,7 +53,6 @@ export default function newGamePageMaker() {
                         label="Nu kör vi"
                         onClick={function () {
                             const teams = _.values(teamNames).map(team => team.name);
-                            console.log(teams);
                             if (_.uniq(teams).length !== teams.length) {
                                 setShouldShowDuplicateWarning(true);
                             } else {

@@ -40,6 +40,17 @@ function App() {
         }
     }, []);
 
+    useEffect(function () {
+        addEventListener('popstate', (event) => {
+            const page = event.currentTarget.location.pathname.replace('/', '');
+            dispatch(setActivePage(page))
+        });
+    })
+
+    useEffect(function () {
+        window.history.pushState(state, '', state.router.activePage);
+    }, [state.router.activePage])
+
     return (
         <>
             <header>
@@ -135,8 +146,10 @@ function App() {
                 }
             </div>
             <div className={'modal' + (showModal ? ' show' : '')}>
-                <div className="modal-content"
+                <div
                     style={{
+                        fontFamily: 'Bangers',
+                        letterSpacing: '0.2vh',
                         display: 'flex',
                         flexDirection: 'column',
                         fontSize: '3vh',
@@ -146,7 +159,7 @@ function App() {
                         left: '15vw',
                         width: '70vw'
                     }}>
-                    <div style={{ marginRight: '2vw' }}>
+                    <div style={{ marginRight: '2vw', paddingBottom: '1vh' }}>
                         För att spela behöver du dölja adressfältet nedan. Tryck på "<span style={{ fontSize: '2vh' }}>a</span>a" och sedan “göm verktygsfältet".
                     </div>
                     <Arrow />

@@ -9,10 +9,7 @@ export default function newGamePageMaker() {
     function NewGamePageComponent({ triggerEvent, amountOfTeams, amountOfRounds, roundLength, passPerRound }) {
         return (
             <>
-                <div className="page-header">
-                    <h1 title={'INSTÄLLNINGAR'}>INSTÄLLNINGAR</h1>
-                </div>
-                <div className="main-content">
+                <div className="main-content" style={{height: '60vh', paddingTop: '13vh'}}>
                     <Dropdown
                         title="Antal lag 🧑‍🤝‍🧑"
                         placeholder="Välj.."
