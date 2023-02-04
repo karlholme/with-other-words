@@ -6,22 +6,17 @@ import summaryComponentMaker from '../features/activeGame/summary';
 import roundComponentMaker from '../features/activeGame/round';
 import gameSummaryComponentMaker from '../features/gameSummary/summary';
 import Arrow from '../assets/Arrow.js';
-import Cross from '../assets/Cross';
 
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePage } from './routerSlice';
 import { setAmountOfRounds, setAmountOfTeams, setPassPerRound, setRoundLength } from '../features/gameSetup/setupSlice';
 import { newGameStarted, wordCompleted, roundEnded, resetGame, teamNameChanged, pass } from '../features/activeGame/gameSlice';
 
-import dingSound from '../assets/ding.mp3';
-
 const SetupComponent = setupComponentMaker();
 const NameTeamsComponent = nameTeamsComponentMaker();
 const SummaryComponent = summaryComponentMaker();
 const RoundComponent = roundComponentMaker();
 const GameSummaryComponent = gameSummaryComponentMaker();
-
-const ding = new Audio(dingSound);
 
 // TODO
 // Ljud när omgången är slut
@@ -134,15 +129,23 @@ function App() {
                             } else if (event.name === 'ROUND_ENDED') {
                                 dispatch(roundEnded(state.setup.amountOfRounds));
                                 dispatch(setActivePage('game'));
-
-                                ding.play();
                             }
                         }}
                     />
                 }
             </div>
             <div className={'modal' + (showModal ? ' show' : '')}>
-                <div className="modal-content" style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="modal-content"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        fontSize: '3vh',
+                        color: 'white',
+                        position: 'absolute',
+                        bottom: '2vh',
+                        left: '15vw',
+                        width: '70vw'
+                    }}>
                     <div style={{ marginRight: '2vw' }}>
                         För att spela behöver du dölja adressfältet nedan. Tryck på "<span style={{ fontSize: '2vh' }}>a</span>a" och sedan “göm verktygsfältet".
                     </div>

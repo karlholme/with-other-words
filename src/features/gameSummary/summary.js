@@ -13,7 +13,7 @@ export default function gameSummaryComponentMaker() {
         return (
             <>
                 <div className="page-header">
-                    <h1 title="SLUT PÅ MATCH">SLUT PÅ MATCH</h1>
+                    <h1 title="SLUT PÅ MATCHEN">SLUT PÅ MATCHEN</h1>
                 </div>
 
                 <div className="main-content" style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
