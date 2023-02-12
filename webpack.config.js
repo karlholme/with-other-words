@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const config = {
@@ -8,7 +9,7 @@ const config = {
     ],
     output: {
         path: __dirname + '/karlholme',
-        filename: 'bundle.js'
+        filename: '[contenthash].bundle.js'
     },
     resolve: {
         alias: {
@@ -41,7 +42,10 @@ const config = {
         new webpack.ProvidePlugin({
             _: 'lodash',
         }),
-    ],
+        new HtmlWebpackPlugin({
+            template: './index.html'
+        })
+    ]
 };
 
 module.exports = config;

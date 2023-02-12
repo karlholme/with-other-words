@@ -5,6 +5,7 @@ import nameTeamsComponentMaker from '../features/gameSetup/nameTeams';
 import summaryComponentMaker from '../features/activeGame/summary';
 import roundComponentMaker from '../features/activeGame/round';
 import gameSummaryComponentMaker from '../features/gameSummary/summary';
+import startPageComponentMaker from '../features/startPage/startPage';
 import Arrow from '../assets/Arrow.js';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +13,7 @@ import { setActivePage } from './routerSlice';
 import { setAmountOfRounds, setAmountOfTeams, setPassPerRound, setRoundLength } from '../features/gameSetup/setupSlice';
 import { newGameStarted, wordCompleted, roundEnded, resetGame, teamNameChanged, pass } from '../features/activeGame/gameSlice';
 
+const StartPage = startPageComponentMaker();
 const SetupComponent = setupComponentMaker();
 const NameTeamsComponent = nameTeamsComponentMaker();
 const SummaryComponent = summaryComponentMaker();
@@ -19,7 +21,6 @@ const RoundComponent = roundComponentMaker();
 const GameSummaryComponent = gameSummaryComponentMaker();
 
 // TODO
-// Ljud när omgången är slut
 // Meny där man kan starta om spel
 // Ändra om man tryckt fel
 // PWA
@@ -59,6 +60,14 @@ function App() {
                 </span>
             </header>
             <div className="app">
+                {state.router.activePage === 'start' &&
+                    <StartPage
+                        triggerEvent={function (event) {
+                            if (event.name === 'START-GAME-SELECTED') {
+                                dispatch(setActivePage('setup'))
+                            }
+                        }} />
+                }
                 {state.router.activePage === 'setup' &&
                     <SetupComponent
                         amountOfTeams={state.setup.amountOfTeams}
@@ -159,7 +168,9 @@ function App() {
                         left: '15vw',
                         width: '70vw'
                     }}>
-                    <div style={{ marginRight: '2vw', paddingBottom: '1vh' }}>
+                    <div onClick={function () {
+                        setShowModal(false);
+                    }} style={{ marginRight: '2vw', paddingBottom: '1vh' }}>
                         För att spela behöver du dölja adressfältet nedan. Tryck på "<span style={{ fontSize: '2vh' }}>a</span>a" och sedan “göm verktygsfältet".
                     </div>
                     <Arrow />

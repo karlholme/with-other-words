@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const routerSlice = createSlice({
     name: 'router',
     initialState: {
-        activePage: 'setup'
+        activePage: 'start'
     },
     reducers: {
         setActivePage: (state, action) => {

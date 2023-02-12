@@ -24,7 +24,7 @@ export default function newGamePageMaker() {
                     flexWrap: 'wrap',
                     alignContent: 'center',
                     justifyContent: 'center',
-                    maxWidth: '35rem'
+                    maxWidth: '40rem'
                 }}>
                     {[...Array(amountOfTeams).keys()].map(function (teamNumber) {
                         const team = teamNumber + 1;

@@ -13,6 +13,11 @@ $header-height: 10vh;
     src: url("../assets/Bangers-Regular.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Familjen Grotesk";
+    src: url("../assets/FamiljenGrotesk-VariableFont_wght.ttf") format("truetype");
+}
+
 /// Stroke font-character
 /// @param  {Integer} $stroke - Stroke width
 /// @param  {Color}   $color  - Stroke color
@@ -55,7 +60,10 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
     overflow: hidden;
+    position: fixed;
+    top: 0;
 }
 
 .app {
@@ -133,11 +141,12 @@ footer {
         background-color: $background-color;
         height: 80vh;
         width: 85vw;
+        padding-top: 3vh;
         border-radius: 5vh;
-        border: 0.5vh black solid;
+        border: 1vh black solid;
         box-shadow: 0 0 0.5vh 0.5vh rgba(0, 0, 0, 0.1);
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
         align-items: center;
         flex-direction: column;
     }
@@ -150,7 +159,6 @@ footer {
 }
 
 h1 {
-    $font-size: 7vh;
     $letter-spacing: 0.5vh;
     @include common-text();
 
@@ -166,7 +174,7 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     color: $contrast-color;
-    font-size: $font-size;
+    font-size: 7vh;
     letter-spacing: $letter-spacing;
     height: fit-content;
 
@@ -174,7 +182,6 @@ h1 {
         @include common-text();
         position: absolute;
         content: attr(title);
-        font-size: $font-size;
         letter-spacing: $letter-spacing;
         z-index: -1;
         @include stroke(white, 1, 0.3vh);
@@ -192,10 +199,16 @@ h2 {
     justify-content: center;
 }
 
+p {
+    margin-top: 0;
+}
+
 .invalid-text {
-    @include common-text();
+    // @include common-text();
+    font-family: 'Familjen Grotesk';
     font-size: 3vh;
-    color: $contrast-color;
+    padding-bottom: 1vh;
+    color: red;
 }
 
 .gradient-text {
@@ -344,7 +357,6 @@ button {
         @include stroke(white, 1);
         width: 80%;
         border: $contrast-color solid 0.7vh;
-        max-width: 8vw;
         margin: 0.1rem;
 
         .color-box-header {
@@ -416,9 +428,6 @@ button {
     }
     h1 {
         font-size: 6vh;
-        &::before {
-            font-size: 6vh;
-        }
     }
     button {
         & .button-text {

@@ -9,9 +9,9 @@ export default function newGamePageMaker() {
     function NewGamePageComponent({ triggerEvent, amountOfTeams, amountOfRounds, roundLength, passPerRound }) {
         return (
             <>
-                <div className="main-content" style={{height: '60vh', paddingTop: '13vh'}}>
+                <div className="main-content" style={{height: '60vh',  width: '60vw', paddingTop: '10vh', paddingBottom: '3vh'}}>
                     <Dropdown
-                        title="Antal lag 🧑‍🤝‍🧑"
+                        title="Antal lag"
                         placeholder="Välj.."
                         alternatives={[1, 2, 3, 4, 5, 6]}
                         onChange={function (event) {
@@ -20,21 +20,21 @@ export default function newGamePageMaker() {
                         value={amountOfTeams}
                     />
                     <Dropdown
-                        title="Antal rundor ♺"
+                        title="Antal rundor"
                         placeholder="Välj.."
                         alternatives={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                         onChange={(event) => triggerEvent({ name: 'AMOUNT-OF-ROUNDS-CHANGED', data: event.target.value })}
                         value={amountOfRounds}
                     />
                     <Dropdown
-                        title="Tidsgräns sek ⏱"
+                        title="Tidsgräns"
                         placeholder="Välj.."
                         alternatives={[30, 45, 60, 75]}
                         onChange={(event) => triggerEvent({ name: 'ROUNDS-LENGTH-CHANGED', data: event.target.value })}
                         value={roundLength}
                     />
                     <Dropdown
-                        title="Pass per runda 🚫"
+                        title="Pass per runda"
                         placeholder="Välj.."
                         alternatives={[0, 1, 2, 3, '∞']}
                         onChange={(event) => triggerEvent({ name: 'PASS-PER-ROUND-CHANGED', data: event.target.value })}

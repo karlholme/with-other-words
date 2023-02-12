@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import buttonMaker from '../../common/button';
 import dingSound from '../../assets/ding.mp3';
 
@@ -6,6 +6,8 @@ const ding = new Audio(dingSound);
 const Button = buttonMaker();
 
 export default function activeGamePageMaker() {
+
+    const touchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 
     function convertSecondsToMinutesAndSek(sek) {
         const minutes = Math.trunc(sek / 60);
@@ -17,6 +19,7 @@ export default function activeGamePageMaker() {
     function RoundComponent({ triggerEvent, wordToGuess, totalTime, roundScore, maxPassesPassed }) {
         const [counter, setCounter] = React.useState(totalTime);
         const [showSummary, setShowSummary] = React.useState(false);
+        const wordToGuessRef = useRef();
         const timeLeft = convertSecondsToMinutesAndSek(counter);
 
         useEffect(() => {
@@ -25,13 +28,42 @@ export default function activeGamePageMaker() {
                 timer = setInterval(() => setCounter(counter - 1), 1000);
             } else {
                 if (navigator.vibrate) {
-                    navigator.vibrate(400);
+                    navigator.vibrate(222);
                 }
                 ding.play();
                 setShowSummary(true);
             }
             return () => clearInterval(timer);
         }, [counter]);
+
+        useEffect(() => {
+            let touchstartX = 0;
+            let touchendX = 0;
+
+            document.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX
+            })
+
+            document.addEventListener('touchmove', e => {
+                var deltaX = e.changedTouches[0].screenX - touchstartX;
+                wordToGuessRef.current.style.transform = 'translate(' + deltaX + 'px)'
+            })
+
+            document.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX
+
+                if (touchendX < touchstartX) {
+                    // swiped left
+                    triggerEvent({ name: 'PASS' });
+                } else if (touchendX > touchstartX) {
+                    // swiped right
+                    triggerEvent({ name: 'WORD_COMPLETED' });
+                    ding.play();
+                }
+
+                wordToGuessRef.current.style.transform = 'translate(0px)'
+            })
+        }, []);
 
         return (
             <>
@@ -77,7 +109,10 @@ export default function activeGamePageMaker() {
                     <h1 title={timeLeft} style={{ marginTop: '0', paddingTop: '0' }}>{timeLeft}</h1>
                 </div>
 
-                <div className="main-content" style={{ justifyContent: 'center', height: '51vh' }}>
+                <div
+                    ref={wordToGuessRef}
+                    className="main-content"
+                    style={{ justifyContent: 'center', height: '51vh', transition: 'transform .2s' }}>
                     <h1 title={wordToGuess}>{wordToGuess}</h1>
                 </div>
 
@@ -86,12 +121,16 @@ export default function activeGamePageMaker() {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Button disabled={maxPassesPassed} label="👎" style={{ marginRight: '3vh' }} onClick={function () {
-                        triggerEvent({ name: 'PASS' });
-                    }} />
-                    <Button label="👍" onClick={function () {
-                        triggerEvent({ name: 'WORD_COMPLETED' });
-                    }} />
+                    {!touchDevice && (
+                        <>
+                            <Button disabled={maxPassesPassed} label="👎" style={{ marginRight: '3vh' }} onClick={function () {
+                                triggerEvent({ name: 'PASS' });
+                            }} />
+                            <Button label="👍" onClick={function () {
+                                triggerEvent({ name: 'WORD_COMPLETED' });
+                            }} />
+                        </>
+                    )}
                 </footer>
             </>
         )
