@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import buttonMaker from '../../common/button';
+import confetti from 'canvas-confetti';
 
 const Button = buttonMaker();
 
@@ -25,7 +26,7 @@ export default function startPageComponentMaker() {
                                 Gissar man på rätt ord, men i en annan börjning eller annat tempus, är det okej.
                             </p>
                         </div>
-                        <Button style={{margin: '3vh'}} label="Stäng" onClick={function () {
+                        <Button style={{ margin: '3vh' }} label="Stäng" onClick={function () {
                             setShowRules(false);
                         }} />
 
@@ -43,6 +44,16 @@ export default function startPageComponentMaker() {
                         setShowRules(true);
                     }} />
                     <Button label="Spela" onClick={function () {
+                        confetti({
+                            particleCount: 100,
+                            startVelocity: 30,
+                            spread: 360,
+                            origin: {
+                                x: Math.random(),
+                                // since they fall down, start a bit higher than random
+                                y: Math.random() - 0.2
+                            }
+                        });
                         triggerEvent({ name: 'START-GAME-SELECTED' })
                     }} />
                 </footer>

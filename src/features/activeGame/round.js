@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import buttonMaker from '../../common/button';
 import dingSound from '../../assets/ding.mp3';
+import confetti from 'canvas-confetti';
 
 const ding = new Audio(dingSound);
 const Button = buttonMaker();
@@ -40,28 +41,35 @@ export default function activeGamePageMaker() {
             let touchstartX = 0;
             let touchendX = 0;
 
-            document.addEventListener('touchstart', e => {
+            wordToGuessRef.current.addEventListener('touchstart', e => {
                 touchstartX = e.changedTouches[0].screenX
             })
 
-            document.addEventListener('touchmove', e => {
+            wordToGuessRef.current.addEventListener('touchmove', e => {
                 var deltaX = e.changedTouches[0].screenX - touchstartX;
                 wordToGuessRef.current.style.transform = 'translate(' + deltaX + 'px)'
             })
 
-            document.addEventListener('touchend', e => {
+            wordToGuessRef.current.addEventListener('touchend', e => {
                 touchendX = e.changedTouches[0].screenX
 
                 if (touchendX < touchstartX) {
                     // swiped left
                     triggerEvent({ name: 'PASS' });
+                    confetti.reset();
+                    wordToGuessRef.current.style.transform = 'translate(0px)'
                 } else if (touchendX > touchstartX) {
                     // swiped right
                     triggerEvent({ name: 'WORD_COMPLETED' });
-                    ding.play();
+                    wordToGuessRef.current.style.transform = 'translate(0px)'
+                    window.requestAnimationFrame(() => {
+                        confetti({
+                            particleCount: 30,
+                            origin: { y: 1 }
+                        });
+                        ding.play();
+                    })
                 }
-
-                wordToGuessRef.current.style.transform = 'translate(0px)'
             })
         }, []);
 
@@ -112,7 +120,7 @@ export default function activeGamePageMaker() {
                 <div
                     ref={wordToGuessRef}
                     className="main-content"
-                    style={{ justifyContent: 'center', height: '51vh', transition: 'transform .2s' }}>
+                    style={{ justifyContent: 'center', height: '51vh', transition: 'transform .2s', width: '100%' }}>
                     <h1 title={wordToGuess}>{wordToGuess}</h1>
                 </div>
 
